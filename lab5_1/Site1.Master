@@ -1,0 +1,175 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site1.master.cs" Inherits="lab5_1.Site1" %>
+
+<!DOCTYPE html>
+<html lang="ru">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Learn</title>
+    <asp:ContentPlaceHolder ID="head" runat="server"></asp:ContentPlaceHolder>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Montserrat', sans-serif; /* Более современный шрифт */
+            background-color: #f8f9fa; /* Светлый фон */
+            color: #343a40; /* Темный текст для контраста */
+            line-height: 1.6; /* Улучшенная читаемость */
+        }
+
+        header {
+            background-color: #007bff; /* Синий цвет для шапки */
+            color: white;
+            padding: 1rem 2rem; /* Больше отступы */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.75rem;
+        }
+
+        .user-actions {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .user-actions label {
+            margin-bottom: 0.2rem;
+        }
+        .user-actions input {
+            padding: 0.5rem;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+        }
+
+        .user-actions button {
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 5px;
+            background-color: #0056b3; /* Более темный синий для кнопки */
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .user-actions button:hover {
+            background-color: #0069d9;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 250px 1fr; /* Фиксированная ширина для навигации */
+            min-height: calc(100vh - 120px); /* Учет высоты шапки и подвала */
+            margin: 20px;
+        }
+
+        nav {
+            background-color: #fff;
+            border-right: 1px solid #dee2e6;
+            padding: 1.5rem;
+        }
+
+        nav a {
+            display: block;
+            padding: 0.5rem 0;
+            color: #007bff; /* Синий цвет для ссылок */
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #0056b3;
+        }
+
+        main {
+            padding: 2rem;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+        }
+
+        main p { /* Стиль для абзаца */
+            margin-bottom: 1rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background-color: #343a40;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            nav {
+                border-right: none;
+                border-bottom: 1px solid #dee2e6;
+                padding: 1rem;
+                display: flex;
+                overflow-x: auto; /* Добавляем горизонтальную прокрутку для навигации на мобильных */
+                justify-content: space-around;
+
+            }
+            nav a {
+                white-space: nowrap; /* Предотвращаем перенос текста ссылок */
+                margin: 0 10px;
+            }
+
+            main {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <header>
+            <h1>Music Learn</h1>
+            <div class="user-actions">
+                <asp:Label ID="Label1" runat="server" Text="Добрый вечер"></asp:Label>
+                <div>
+                    <asp:Label ID="Label2" runat="server" Text="Логин"></asp:Label><br />
+                    <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+                </div>
+                <div>
+                    <asp:Label ID="Label3" runat="server" Text="Пароль"></asp:Label><br />
+                    <asp:TextBox ID="TextBox2" runat="server" TextMode="Password"></asp:TextBox>
+                </div>
+                <div>
+                    <asp:Button ID="Button1" runat="server" Text="Вход" />
+                    <asp:Button ID="Button2" runat="server" Text="Регистрация" />
+                    <asp:Button ID="Button3" runat="server" Text="Выход" />
+                </div>
+            </div>
+        </header>
+
+        <div class="container">
+            <nav>
+                <asp:LinkButton ID="LinkButton1" runat="server" OnClick="LinkButton1_Click">Новости</asp:LinkButton>
+                <asp:LinkButton ID="LinkButton2" runat="server" OnClick="LinkButton2_Click">Курсы</asp:LinkButton>
+                <asp:LinkButton ID="LinkButton3" runat="server">F.A.Q</asp:LinkButton>
+            </nav>
+
+            <main>
+                
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                    <h2>Добро пожаловать в Music Learn!</h2>
+                    <p>Откройте для себя мир музыки с нашими онлайн-курсами. Мы предлагаем обучение игре на гитаре, фортепиано и искусству звукорежиссуры, подходящее для музыкантов всех уровней. Наши опытные преподаватели помогут вам раскрыть свой музыкальный потенциал и достичь новых высот.</p>
+                    <p>Начните свой музыкальный путь уже сегодня!</p>
+                </asp:ContentPlaceHolder>
+            </main>
+        </div>
+
+        <footer>
+            &copy; 2024 Music Learn. Все права защищены.
+        </footer>
+    </form>
+</body>
+</html>
