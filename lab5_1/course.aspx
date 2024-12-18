@@ -26,10 +26,11 @@
 
     <asp:GridView ID="GridViewCourses" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered">
         <Columns>
-            <asp:BoundField DataField="CourseName" HeaderText="Название курса" />
+            <asp:HyperLinkField DataTextField="CourseName" DataNavigateUrlFormatString="courseDetails.aspx?CourseID={0}" DataNavigateUrlFields="CourseID" HeaderText="Название курса" />
             <asp:BoundField DataField="CourseDescription" HeaderText="Описание" />
             <asp:BoundField DataField="CategoryName" HeaderText="Категория" />
             <asp:BoundField DataField="TeacherUsername" HeaderText="Преподаватель" />
+            <asp:BoundField DataField="CourseStatus" HeaderText="Статус" />
         </Columns>
     </asp:GridView>
 </asp:Content>
