@@ -144,7 +144,7 @@
                 </div>
                 <div>
                     <asp:Button ID="Button1" runat="server" Text="Вход" />
-                    <asp:Button ID="Button2" runat="server" Text="Регистрация" />
+                    <asp:Button ID="Button2" runat="server" Text="Регистрация" OnClick="GoToRegister_Click" />
                     <asp:Button ID="Button3" runat="server" Text="Выход" />
                 </div>
             </div>

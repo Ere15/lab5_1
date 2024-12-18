@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace lab5_1
 {
-    public partial class Site1 : System.Web.UI.MasterPage
+    public partial class Site1 : MasterPage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -23,5 +23,10 @@ namespace lab5_1
         {
             Response.Redirect("news.aspx");
         }
+        protected void GoToRegister_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("reg.aspx");
+        }
+
     }
 }
