@@ -132,8 +132,12 @@
     <form id="form1" runat="server">
         <header>
             <h1>Music Learn</h1>
-            <div class="user-actions">
-                <asp:Label ID="Label1" runat="server" Text="Добрый вечер"></asp:Label>
+        <div class="user-actions">
+            <!-- Приветствие -->
+            <asp:Label ID="Label1" runat="server" Text="Добрый вечер"></asp:Label>
+
+            <!-- Поля ввода логина и пароля -->
+            <div id="loginFields" runat="server">
                 <div>
                     <asp:Label ID="Label2" runat="server" Text="Логин"></asp:Label><br />
                     <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
@@ -143,11 +147,17 @@
                     <asp:TextBox ID="TextBox2" runat="server" TextMode="Password"></asp:TextBox>
                 </div>
                 <div>
-                    <asp:Button ID="Button1" runat="server" Text="Вход" />
-                    <asp:Button ID="Button2" runat="server" Text="Регистрация" OnClick="GoToRegister_Click" />
-                    <asp:Button ID="Button3" runat="server" Text="Выход" />
+                    <asp:Button ID="Button1" runat="server" Text="Вход" OnClick="Button1_Click" />
+                    <asp:Button ID="Button2" runat="server" Text="Регистрация" OnClick="Button2_Click" />
                 </div>
             </div>
+
+            <!-- Кнопки для авторизованных пользователей -->
+            <div id="authenticatedButtons"  runat="server" style="display: none;">
+                <asp:Button ID="ButtonProfile" runat="server" Text="Личный кабинет" OnClick="GoToProfile_Click" />
+                <asp:Button ID="Button3" runat="server" Text="Выход" OnClick="Button3_Click" />
+            </div>
+        </div>
         </header>
 
         <div class="container">

@@ -42,6 +42,15 @@ namespace lab5_1
         protected global::System.Web.UI.WebControls.Label Label1;
 
         /// <summary>
+        /// loginFields элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически созданное поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl loginFields;
+
+        /// <summary>
         /// Label2 элемент управления.
         /// </summary>
         /// <remarks>
@@ -94,6 +103,24 @@ namespace lab5_1
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button Button2;
+
+        /// <summary>
+        /// authenticatedButtons элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически созданное поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl authenticatedButtons;
+
+        /// <summary>
+        /// ButtonProfile элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически созданное поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ButtonProfile;
 
         /// <summary>
         /// Button3 элемент управления.
