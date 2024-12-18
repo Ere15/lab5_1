@@ -68,8 +68,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AdminMenu.aspx" />
+    <Content Include="CheckAssignments.aspx" />
     <Content Include="course.aspx" />
     <Content Include="courseDetails.aspx" />
+    <Content Include="CreateCourse.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="news.aspx" />
     <Content Include="personal.aspx" />
@@ -85,6 +87,13 @@
     <Compile Include="AdminMenu.aspx.designer.cs">
       <DependentUpon>AdminMenu.aspx</DependentUpon>
     </Compile>
+    <Compile Include="CheckAssignments.aspx.cs">
+      <DependentUpon>CheckAssignments.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CheckAssignments.aspx.designer.cs">
+      <DependentUpon>CheckAssignments.aspx</DependentUpon>
+    </Compile>
     <Compile Include="course.aspx.cs">
       <DependentUpon>course.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -98,6 +107,13 @@
     </Compile>
     <Compile Include="courseDetails.aspx.designer.cs">
       <DependentUpon>courseDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CreateCourse.aspx.cs">
+      <DependentUpon>CreateCourse.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CreateCourse.aspx.designer.cs">
+      <DependentUpon>CreateCourse.aspx</DependentUpon>
     </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
