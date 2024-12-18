@@ -36,7 +36,7 @@ namespace lab5_1
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-                    string query = "SELECT RoleID FROM Users WHERE Username = @Username AND Password = @Password";
+                    string query = "SELECT RoleID, UserID FROM Users WHERE Username = @Username AND Password = @Password";
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@Username", username);
@@ -51,6 +51,7 @@ namespace lab5_1
                             int userRole = Convert.ToInt32(roleResult);
                             Session["Username"] = username; // Сохраняем имя пользователя
                             Session["UserRole"] = userRole;
+                            Session["UserID"] = roleResult.ToString();
                             if (userRole == 1)
                             {
                                 Response.Redirect("AdminMenu.aspx");
