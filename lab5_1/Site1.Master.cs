@@ -36,19 +36,25 @@ namespace lab5_1
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-                    string query = "SELECT COUNT(*) FROM Users WHERE Username = @Username AND Password = @Password";
+                    string query = "SELECT RoleID FROM Users WHERE Username = @Username AND Password = @Password";
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@Username", username);
                         cmd.Parameters.AddWithValue("@Password", password);
 
                         conn.Open();
-                        int userExists = (int)cmd.ExecuteScalar();
+                        object roleResult = cmd.ExecuteScalar();
 
-                        if (userExists > 0)
+                        if (roleResult != null)
                         {
                             // Успешная авторизация
+                            int userRole = Convert.ToInt32(roleResult);
                             Session["Username"] = username; // Сохраняем имя пользователя
+                            Session["UserRole"] = userRole;
+                            if (userRole == 1)
+                            {
+                                Response.Redirect("AdminMenu.aspx");
+                            }
                             Label1.Text = $"Добро пожаловать, {username}!";
                             UpdateUI();
                         }
@@ -88,9 +94,35 @@ namespace lab5_1
             Response.Redirect("news.aspx");
         }
 
-        protected void GoToProfile_Click(object sender, EventArgs e) // Переход в личный кабинет
+        protected void GoToProfile_Click(object sender, EventArgs e)
         {
-            Response.Redirect("~/personal.aspx");
+            if (Session["UserRole"] != null) // Проверяем, авторизован ли пользователь
+            {
+                int userRole = (int)Session["UserRole"];
+
+                switch (userRole)
+                {
+                    case 1:
+                        Response.Redirect("AdminMenu.aspx");
+                        break;
+                    case 2:
+                        Response.Redirect("TeacherProfile.aspx");
+                        break;
+                    case 3:
+                        Response.Redirect("personal.aspx");
+                        break;
+                    default:
+                        // Обработка неизвестной роли (опционально, можно просто ничего не делать)
+                        break;
+                }
+            }
+            else
+            {
+                // Пользователь не авторизован, можно перенаправить на страницу входа или показать сообщение
+                Response.Redirect("Default.aspx"); // Перенаправление на страницу входа
+                                                   // Или:
+                                                   // Label1.Text = "Пожалуйста, войдите в систему.";
+            }
         }
 
         private void UpdateUI()
