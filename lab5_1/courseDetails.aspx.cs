@@ -29,13 +29,12 @@ namespace lab5_1
         {
             string query = @"
         SELECT c.CourseName, c.CourseDescription, cat.CategoryName, 
-               u.Username AS TeacherUsername, cs.StatusName AS CourseStatus
+               u.Username AS TeacherUsername, cs.StatusName AS CourseStatus, c.CourseStatusID
         FROM Courses c
         JOIN Category cat ON c.CategoryID = cat.CategoryID
         JOIN Users u ON c.TeacherID = u.UserID
         LEFT JOIN CourseStatus cs ON c.CourseStatusID = cs.CourseStatusID
         WHERE c.CourseID = @CourseID";
-
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 try
@@ -84,7 +83,7 @@ namespace lab5_1
         protected void ButtonEnroll_Click(object sender, EventArgs e)
         {
             string courseId = Request.QueryString["CourseID"];
-            string userId = Session["UserID"]?.ToString(); // Предполагается, что UserID хранится в сессии
+            string userId = Session["UserID"]?.ToString(); 
 
             if (string.IsNullOrEmpty(userId))
             {
