@@ -11,7 +11,7 @@
     <style>
         body {
             margin: 0;
-            font-family: 'Montserrat', sans-serif; /* Более современный шрифт */
+            font-family: 'Montserrat', sans-serif; 
             background-color: #f8f9fa; /* Светлый фон */
             color: #343a40; /* Темный текст для контраста */
             line-height: 1.6; /* Улучшенная читаемость */
@@ -125,13 +125,29 @@
             main {
                 padding: 1rem;
             }
+            
+        }
+        .music-learn-link {
+            text-decoration: none; /* Убираем подчеркивание */
+            display: block; /* Важно для корректного увеличения */
+            transition: transform 0.3s ease; /* Плавная анимация */
+        }
+
+        .music-learn-link:hover {
+            transform: scale(1.1); /* Увеличение при наведении */
+        }
+
+        .music-learn-link h1 {
+            margin: 0; /* Убираем стандартные отступы h1 */
+            font-size: 1.75rem; /* Возвращаем размер шрифта */
+            color: white; /* Белый цвет текста */
         }
     </style>
 </head>
 <body>
     <form id="form1" runat="server">
         <header>
-            <h1>Music Learn</h1>
+            <a href="Default.aspx" class="music-learn-link"><h1>Music Learn</h1></a>
         <div class="user-actions">
             <!-- Приветствие -->
             <asp:Label ID="Label1" runat="server" Text="Добрый вечер"></asp:Label>
