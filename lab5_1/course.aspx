@@ -24,7 +24,7 @@
         </div>
     </div>
 
-    <asp:GridView ID="GridViewCourses" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered">
+    <asp:GridView ID="GridViewCourses" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered" OnSelectedIndexChanged="GridViewCourses_SelectedIndexChanged">
         <Columns>
             <asp:HyperLinkField DataTextField="CourseName" DataNavigateUrlFormatString="courseDetails.aspx?CourseID={0}" DataNavigateUrlFields="CourseID" HeaderText="Название курса" />
             <asp:BoundField DataField="CourseDescription" HeaderText="Описание" />

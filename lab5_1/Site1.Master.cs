@@ -74,6 +74,7 @@ namespace lab5_1
         {
             Session.Clear();
             UpdateUI();
+            Response.Redirect("Default.aspx");
             Label1.Text = "Вы вышли из системы.";
         }
 

@@ -111,5 +111,10 @@ namespace lab5_1
         {
             LoadCourses();
         }
+
+        protected void GridViewCourses_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

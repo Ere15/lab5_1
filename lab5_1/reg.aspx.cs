@@ -66,6 +66,8 @@ namespace lab5_1
                 // Обработка ошибок
                 DisplayMessage("Произошла ошибка: " + ex.Message, false);
             }
+
+            Response.Redirect("Default.aspx");
         }
 
         // Метод для отображения сообщений

@@ -28,32 +28,43 @@ namespace lab5_1
         private void LoadCourseDetails(int courseID)
         {
             string query = @"
-                SELECT c.CourseName, c.CourseDescription, cat.CategoryName, u.Username AS TeacherUsername, cs.StatusName AS CourseStatus -- Добавлено
-                FROM Courses c
-                JOIN Category cat ON c.CategoryID = cat.CategoryID
-                JOIN Users u ON c.TeacherID = u.UserID
-                LEFT JOIN CourseStatus cs ON c.CourseStatusID = cs.CourseStatusID -- LEFT JOIN
-                WHERE c.CourseID = @CourseID";
+        SELECT c.CourseName, c.CourseDescription, cat.CategoryName, 
+               u.Username AS TeacherUsername, cs.StatusName AS CourseStatus
+        FROM Courses c
+        JOIN Category cat ON c.CategoryID = cat.CategoryID
+        JOIN Users u ON c.TeacherID = u.UserID
+        LEFT JOIN CourseStatus cs ON c.CourseStatusID = cs.CourseStatusID
+        WHERE c.CourseID = @CourseID";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 try
                 {
-                    connection.Open(); 
+                    connection.Open();
 
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.Add("CourseID",SqlDbType.Int).Value = courseID;
+                        command.Parameters.Add("CourseID", SqlDbType.Int).Value = courseID;
 
                         using (SqlDataReader reader = command.ExecuteReader(CommandBehavior.SingleRow))
                         {
                             if (reader.Read())
                             {
-                                LabelCourseStatusValue.Text = reader["CourseStatus"] == DBNull.Value ? "" : reader["CourseStatus"].ToString();
                                 LabelCourseName.Text = reader["CourseName"].ToString();
                                 LabelCourseDescription.Text = reader["CourseDescription"].ToString();
                                 LabelCategoryValue.Text = reader["CategoryName"].ToString();
                                 LabelTeacherValue.Text = reader["TeacherUsername"].ToString();
+                                LabelCourseStatusValue.Text = reader["CourseStatus"] == DBNull.Value
+                                    ? "Не указан"
+                                    : reader["CourseStatus"].ToString();
+
+                                int courseStatusId = Convert.ToInt32(reader["CourseStatusID"]);
+
+                                // Если статус равен 3, делаем кнопку видимой
+                                if (courseStatusId == 3)
+                                {
+                                    ButtonEnroll.Visible = true;
+                                }
                             }
                             else
                             {
@@ -68,6 +79,41 @@ namespace lab5_1
                     System.Diagnostics.Debug.WriteLine(ex.ToString());
                 }
             }
+        }
+
+        protected void ButtonEnroll_Click(object sender, EventArgs e)
+        {
+            string courseId = Request.QueryString["CourseID"];
+            string userId = Session["UserID"]?.ToString(); // Предполагается, что UserID хранится в сессии
+
+            if (string.IsNullOrEmpty(userId))
+            {
+                LabelError.Text = "Вы должны быть авторизованы, чтобы записаться на курс.";
+                return;
+            }
+
+            string connectionString = ConfigurationManager.ConnectionStrings["MusicSchoolDB"].ConnectionString;
+            string query = "INSERT INTO Registration (UserID, CourseID) VALUES (@UserID, @CourseID)";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@UserID", userId);
+                command.Parameters.AddWithValue("@CourseID", courseId);
+
+                try
+                {
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                    LabelError.ForeColor = System.Drawing.Color.Green;
+                    LabelError.Text = "Вы успешно записались на курс!";
+                }
+                catch (Exception ex)
+                {
+                    LabelError.Text = "Ошибка при записи на курс: " + ex.Message;
+                }
+            }
+
         }
     }
 }

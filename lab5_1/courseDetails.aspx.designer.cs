@@ -69,13 +69,13 @@ namespace lab5_1
         protected global::System.Web.UI.WebControls.Label LabelTeacherValue;
 
         /// <summary>
-        /// LabelError элемент управления.
+        /// LabelStatus элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически созданное поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LabelError;
+        protected global::System.Web.UI.WebControls.Label LabelStatus;
 
         /// <summary>
         /// LabelCourseStatusValue элемент управления.
@@ -85,5 +85,23 @@ namespace lab5_1
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LabelCourseStatusValue;
+
+        /// <summary>
+        /// ButtonEnroll элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически созданное поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ButtonEnroll;
+
+        /// <summary>
+        /// LabelError элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически созданное поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelError;
     }
 }
