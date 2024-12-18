@@ -166,10 +166,6 @@
                 </asp:ContentPlaceHolder>
             </main>
         </div>
-
-        <footer>
-            &copy; 2024 Music Learn. Все права защищены.
-        </footer>
     </form>
 </body>
 </html>
