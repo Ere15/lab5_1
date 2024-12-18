@@ -14,22 +14,22 @@
 
     <asp:Panel ID="ContentPanel" runat="server">
         <h2><asp:Label ID="ContentTitleLabel" runat="server"></asp:Label></h2>
-        <asp:Panel ID="CoursePanel" runat="server" Visible="false"> <%-- Панель для DropDownList --%>
+        <asp:Panel ID="CoursePanel" runat="server" Visible="false">
             <asp:DropDownList ID="CourseDropDownList" runat="server" AutoPostBack="True" OnSelectedIndexChanged="CourseDropDownList_SelectedIndexChanged" CssClass="form-control"></asp:DropDownList>
         </asp:Panel>
-        <asp:GridView ID="GridViewData" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-striped" 
-            OnRowEditing="GridViewData_RowEditing" OnRowCancelingEdit="GridViewData_RowCancelingEdit" 
-            OnRowUpdating="GridViewData_RowUpdating" DataKeyNames="UserID"> <%-- DataKeyNames добавлен --%>
+        <asp:GridView ID="GridViewData" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-striped"
+            OnRowEditing="GridViewData_RowEditing" OnRowCancelingEdit="GridViewData_RowCancelingEdit"
+            OnRowUpdating="GridViewData_RowUpdating" DataKeyNames="UserID">
             <Columns>
                 <asp:BoundField DataField="UserID" HeaderText="ID" ReadOnly="true" />
-                <asp:BoundField DataField="Username" HeaderText="Имя пользователя" ReadOnly="true" />
+                <asp:BoundField DataField="Username" HeaderText="Имя дауна" ReadOnly="true" />
                 <asp:BoundField DataField="Email" HeaderText="Email" ReadOnly="true" />
                 <asp:TemplateField HeaderText="Роль">
                     <ItemTemplate>
                         <asp:Label ID="lblRole" runat="server" Text='<%# Eval("RoleID") %>'></asp:Label>
                     </ItemTemplate>
                     <EditItemTemplate>
-                        <asp:DropDownList ID="ddlRole" runat="server" CssClass="form-control" SelectedValue='<%# Bind("RoleID") %>'> <%-- SelectedValue добавлен --%>
+                        <asp:DropDownList ID="ddlRole" runat="server" CssClass="form-control" SelectedValue='<%# Bind("RoleID") %>'>
                             <asp:ListItem Value="1">Администратор</asp:ListItem>
                             <asp:ListItem Value="2">Преподаватель</asp:ListItem>
                             <asp:ListItem Value="3">Студент</asp:ListItem>

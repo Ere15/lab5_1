@@ -13,5 +13,15 @@ namespace lab5_1
         {
 
         }
+
+        protected void Button4_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("CreateCourse.aspx");
+        }
+
+        protected void Button5_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("CheckAssignments.aspx");
+        }
     }
 }

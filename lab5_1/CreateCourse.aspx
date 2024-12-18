@@ -20,13 +20,13 @@
                     <asp:TextBox ID="AssignmentDescriptionTextBox" runat="server" TextMode="MultiLine" Rows="3" CssClass="form-control" Text='<%# Eval("AssignmentDescription") %>'></asp:TextBox><br />
                     <asp:Label Text="Материалы (ссылки через запятую):" runat="server"></asp:Label><br />
                     <asp:TextBox ID="MaterialsTextBox" runat="server" CssClass="form-control" Text='<%# Eval("Materials") %>'></asp:TextBox><br />
-                    <asp:HiddenField ID="AssignmentIDHiddenField" runat="server" Value='<%# Eval("AssignmentID") %>' />
-                    <asp:Button ID="RemoveAssignmentButton" runat="server" Text="Удалить задание" OnClick="RemoveAssignmentButton_Click" CommandArgument='<%# Container.ItemIndex %>' CssClass="btn btn-danger"/>
+                    <asp:Button ID="RemoveAssignmentButton" runat="server" Text="Удалить задание"
+                        OnClick="RemoveAssignmentButton_Click" CommandArgument='<%# Eval("Id") %>' CssClass="btn btn-danger" />
                 </div>
             </ItemTemplate>
         </asp:Repeater>
-        <asp:Button ID="AddAssignmentButton" runat="server" Text="Добавить задание" OnClick="AddAssignmentButton_Click" CssClass="btn btn-primary"/>
+        <asp:Button ID="AddAssignmentButton" runat="server" Text="Добавить задание" OnClick="AddAssignmentButton_Click" CssClass="btn btn-primary" />
     </asp:Panel>
     <br />
-    <asp:Button ID="CreateCourseButton" runat="server" Text="Создать курс" OnClick="CreateCourseButton_Click" CssClass="btn btn-success"/>
+    <asp:Button ID="CreateCourseButton" runat="server" Text="Создать курс" OnClick="CreateCourseButton_Click" CssClass="btn btn-success" />
 </asp:Content>

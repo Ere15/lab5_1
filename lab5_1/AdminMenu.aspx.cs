@@ -25,6 +25,7 @@ namespace lab5_1
 
         protected void AdminMenuControl_MenuItemClick(object sender, MenuEventArgs e)
         {
+            ViewState["EditIndex"] = -1; // Сбрасываем индекс редактирования при смене пункта меню
             ShowContent(e.Item.Value);
         }
 
@@ -54,10 +55,11 @@ namespace lab5_1
                                       INNER JOIN RegistrationStatus rs ON r.RegistrationStatusID = rs.StatusID";
                             break;
                         case "CourseRequests":
-                            query = @"SELECT c.CourseID, c.CourseName, cs.StatusName, c.CourseDescription, ISNULL(u.Username, 'Не назначен') AS TeacherName
+                            query = @"SELECT c.CourseID, c.CourseName, cs.StatusName, c.CourseDescription, ISNULL(u.Username, 'Не назначен') AS Username, c.TeacherID AS UserID 
                                       FROM Courses c
                                       INNER JOIN CourseStatus cs ON c.CourseStatusID = cs.CourseStatusID
-                                      LEFT JOIN Users u ON c.TeacherID = u.UserID";
+                                      LEFT JOIN Users u ON c.TeacherID = u.UserID
+                                      WHERE c.CourseStatusID = 2"; // Фильтр по статусу запроса курса
                             break;
                         case "UsersList":
                             query = "SELECT UserID, Username, Email, RoleID FROM Users";
@@ -87,6 +89,19 @@ namespace lab5_1
                     {
                         DataTable dt = new DataTable();
                         adapter.Fill(dt);
+
+                        if (contentType == "UsersList")
+                        {
+                            if (ViewState["EditIndex"] != null && (int)ViewState["EditIndex"] >= 0 && (int)ViewState["EditIndex"] < dt.Rows.Count)
+                            {
+                                GridViewData.EditIndex = (int)ViewState["EditIndex"];
+                            }
+                            else
+                            {
+                                GridViewData.EditIndex = -1;
+                            }
+                        }
+
                         GridViewData.DataSource = dt;
                         GridViewData.DataBind();
                     }
@@ -151,7 +166,7 @@ namespace lab5_1
         protected void GridViewData_RowUpdating(object sender, GridViewUpdateEventArgs e)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["MusicSchoolDB"].ConnectionString;
-            int userId = Convert.ToInt32(GridViewData.DataKeys[e.RowIndex].Values["UserID"]); // Используем DataKeyNames
+            int userId = Convert.ToInt32(GridViewData.DataKeys[e.RowIndex].Values["UserID"]); 
             int newRole = Convert.ToInt32(((DropDownList)GridViewData.Rows[e.RowIndex].FindControl("ddlRole")).SelectedValue);
 
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -166,20 +181,38 @@ namespace lab5_1
                     if (rowsAffected > 0)
                     {
                         GridViewData.EditIndex = -1;
-                        ShowContent("UsersList");
+                        ShowContent(GetCurrentContentType());
+                        GridViewData.DataBind();
                     }
                     else
                     {
                         ErrorMessageLabel.Text = "Не удалось обновить роль пользователя.";
                     }
+                    
 
                 }
                 catch (Exception ex)
                 {
                     ErrorMessageLabel.Text = "Ошибка обновления роли: " + ex.Message;
                 }
+                
             }
+            
+            LoadCourses();
         }
+        
         // ... остальные методы
+        private string GetCurrentContentType()
+        {
+            foreach (MenuItem item in AdminMenuControl.Items)
+            {
+                if (item.Selected)
+                {
+                    return item.Value;
+                }
+            }
+            return null; // Или значение по умолчанию
+        }
     }
+
 }
