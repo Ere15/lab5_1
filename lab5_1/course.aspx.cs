@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Data;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace lab5_1
@@ -46,7 +42,7 @@ namespace lab5_1
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                using (SqlDataAdapter adapter = new SqlDataAdapter("SELECT UserID, Username FROM Users WHERE RoleID = 2", connection)) //Только преподаватели
+                using (SqlDataAdapter adapter = new SqlDataAdapter("SELECT UserID, Username FROM Users WHERE RoleID = 2", connection))
                 {
                     DataTable dt = new DataTable();
                     adapter.Fill(dt);
@@ -63,30 +59,41 @@ namespace lab5_1
         private void LoadCourses()
         {
             string query = @"
-                SELECT c.CourseName, c.CourseDescription, cat.CategoryName, u.Username AS TeacherUsername
+                SELECT c.CourseID, c.CourseName, c.CourseDescription, cat.CategoryName, u.Username AS TeacherUsername, cs.StatusName AS CourseStatus -- Добавлено
                 FROM Courses c
                 JOIN Category cat ON c.CategoryID = cat.CategoryID
                 JOIN Users u ON c.TeacherID = u.UserID
+                LEFT JOIN CourseStatus cs ON c.CourseStatusID = cs.CourseStatusID -- LEFT JOIN, чтобы отображать все курсы
                 WHERE (@CategoryID = 0 OR c.CategoryID = @CategoryID)
                   AND (@TeacherID = 0 OR c.TeacherID = @TeacherID)
                   AND (c.CourseName LIKE '%' + @SearchText + '%' OR c.CourseDescription LIKE '%' + @SearchText + '%')";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                using (SqlCommand command = new SqlCommand(query, connection))
+                try
                 {
-                    command.Parameters.AddWithValue("@CategoryID", DropDownListCategory.SelectedValue);
-                    command.Parameters.AddWithValue("@TeacherID", DropDownListTeacher.SelectedValue);
-                    command.Parameters.AddWithValue("@SearchText", TextBoxSearch.Text);
+                    connection.Open(); // ***ОТКРЫВАЕМ СОЕДИНЕНИЕ ЗДЕСЬ!!!***
 
-                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                    using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        DataTable dt = new DataTable();
-                        adapter.Fill(dt);
-                        GridViewCourses.DataSource = dt;
-                        GridViewCourses.DataBind();
+                        command.Parameters.AddWithValue("@CategoryID", DropDownListCategory.SelectedValue);
+                        command.Parameters.AddWithValue("@TeacherID", DropDownListTeacher.SelectedValue);
+                        command.Parameters.AddWithValue("@SearchText", TextBoxSearch.Text);
+
+                        using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                        {
+                            DataTable dt = new DataTable();
+                            adapter.Fill(dt);
+                            GridViewCourses.DataSource = dt;
+                            GridViewCourses.DataBind();
+                        }
                     }
                 }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine(ex.ToString());
+                }
+
             }
         }
 

@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace lab5_1
@@ -40,7 +36,7 @@ namespace lab5_1
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-                    // SQL-запрос для добавления нового пользователя
+                    // SQL-запрос для добавления нового пользователя (БЕЗ RoleID)
                     string query = "INSERT INTO Users (Username, Password, Email) VALUES (@Username, @Password, @Email)";
 
                     using (SqlCommand cmd = new SqlCommand(query, conn))
